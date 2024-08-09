@@ -84,6 +84,15 @@ def delivery_close(delivery_id:int,delivery_close:schemas.DeliveryComment,db:Ses
     db.commit()
     db.refresh(delivery)
     
+    #Updating order table status after  delivery complete
+    order=db.query(models.Order).filter(models.Order.id==delivery.order_id).first()
+    if not order:
+        raise HTTPException(status_code=404,detail="order not found")
+    
+    order.status="completed"
+    db.commit()
+    db.refresh(order)
+    
     #making of a delivery partner availability for new orders
     user=db.query(models.User).filter(models.User.id==delivery.delivery_partner_id).first()
     if user:
