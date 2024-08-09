@@ -34,7 +34,12 @@ def test_get_pizzas(client):
     response=client.get("/customer/pizzas/")
     assert response.status_code==200
     assert response.json()[0]["name"]=="paneer"
-
+    
+#testing filtered pizzas
+def test_filter_pizzas(client):
+    response=client.get("/customer/pizzas/",params={"category":"small"})
+    assert response.status_code==200
+    
 #testing add to cart feature
 def test_add_to_cart(client):
     response=client.post("/customer/cart",json={
