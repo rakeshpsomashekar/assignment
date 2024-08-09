@@ -201,7 +201,7 @@ def delivery_ratings(ratings:schemas.Rating,db:Session=Depends(get_db),current_u
         raise HTTPException(status_code=404,detail="Order not deliveried")
     
 #API to get payment history for a given order id
-@router.post("/payment_details/{orderid}",response_model=schemas.PaymentResponse)
+@router.post("/payment_details/{order_id}",response_model=schemas.PaymentResponse)
 def get_payment_details(order_id:int,db:Session=Depends(get_db),current_user:schemas.User=Depends(get_current_user)):
     if current_user.role !="customer":
         raise HTTPException(status_code=403,detail="not enough permissions")
