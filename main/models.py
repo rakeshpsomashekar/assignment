@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime
 
+#User table having relationship with order,cartitems,rating,delivery tables
 class User(Base):
     __tablename__="users"
     id=Column(Integer,primary_key=True,index=True)
@@ -20,6 +21,7 @@ class User(Base):
     ratings=relationship("Rating",back_populates="user")
     delivery=relationship("Delivery",back_populates="delivery_partner")
 
+#Pizza table having relationship with orderitems,cartitem tables
 class Pizza(Base):
     __tablename__='pizzas'
     id=Column(Integer,primary_key=True,index=True)
@@ -33,7 +35,7 @@ class Pizza(Base):
     order_items=relationship('OrderItem',back_populates="pizza")
     cart_items=relationship('CartItem',back_populates="pizza")
 
-
+#Order table having relationship with user,payment,orderditems,deliveryrating tables
 class Order(Base):
     __tablename__='orders'
     id=Column(Integer,primary_key=True,index=True)
@@ -50,6 +52,7 @@ class Order(Base):
     delivery=relationship("Delivery",back_populates="order")
     ratings=relationship('Rating',back_populates='order')
 
+#payment table having relationship with order table
 class Payment(Base):
     __tablename__='payments'
     id=Column(Integer,primary_key=True,index=True)
@@ -60,6 +63,7 @@ class Payment(Base):
     price=Column(Integer)
     order=relationship("Order",back_populates='payment')
 
+#Orderitem table having relationship with order,pizza table
 class OrderItem(Base):
     __tablename__='order_items'
     id=Column(Integer,primary_key=True,index=True)
@@ -72,7 +76,7 @@ class OrderItem(Base):
     order=relationship("Order",back_populates='ordered_items')
     pizza=relationship("Pizza",back_populates='order_items')
 
-
+#Cartitems table having relationship with user,pizza table
 class CartItem(Base):
     __tablename__='cart_items'
     id=Column(Integer,primary_key=True,index=True)
@@ -85,7 +89,7 @@ class CartItem(Base):
     user=relationship("User",back_populates='cart_items')
     pizza=relationship("Pizza",back_populates='cart_items')
 
-
+#Delivery table having relationship with order,user tables
 class Delivery(Base):
     __tablename__='deliveries'
     id=Column(Integer,primary_key=True,index=True)
@@ -99,7 +103,7 @@ class Delivery(Base):
     order=relationship("Order",back_populates="delivery",foreign_keys=[order_id])
     delivery_partner=relationship("User",back_populates="delivery",foreign_keys=[delivery_partner_id])
 
-
+#Rating table having relationship with user,order tables
 class Rating(Base):
     __tablename__='ratings'
     id=Column(Integer,primary_key=True,index=True)
