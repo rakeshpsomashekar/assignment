@@ -37,3 +37,7 @@ def test_delivery_close(client):
     response=client.put("/delivery/deliveries/1/close",json={"status": "on_vehicle","comment":"super delivery"})
     assert response.status_code==200
 
+#testing get deliveries
+def test_get_deliveries(client):
+    response=client.get("/delivery/deliveries/")
+    assert response.status_code==200
