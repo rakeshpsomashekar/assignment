@@ -68,7 +68,7 @@ def update_order_status(id:int,status:str,db:Session=Depends(get_db),current_use
     order_items=db.query(models.OrderItem).filter(models.OrderItem.order_id==order.id).all()
 
     return schemas.OrderResponse(
-        id=order.id,customer_id=order.customer_id,,delivery_address=order.delivery_address,delivery_partner_id=order.delivery_partner_id,status=order.status,items=[schemas.OrderItemResponse(
+        id=order.id,customer_id=order.customer_id,delivery_address=order.delivery_address,delivery_partner_id=order.delivery_partner_id,status=order.status,items=[schemas.OrderItemResponse(
             id=item.id,
             order_id=item.order_id,
             pizza_id=item.pizza_id,
