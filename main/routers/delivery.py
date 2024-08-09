@@ -100,7 +100,6 @@ def delivery_close(delivery_id:int,delivery_close:schemas.DeliveryComment,db:Ses
         db.commit()
         db.refresh(user)
     
-    
     return schemas.DeliveryResponse(
         id=delivery.id,
         order_id=delivery.order_id,
