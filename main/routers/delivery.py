@@ -99,7 +99,7 @@ def delivery_close(delivery_id:int,delivery_close:schemas.DeliveryComment,db:Ses
         user.is_available=True
         db.commit()
         db.refresh(user)
-    order=db.query(models.Order).filter(models.Order.id==delivery.order_id).first()
+    
     
     return schemas.DeliveryResponse(
         id=delivery.id,
