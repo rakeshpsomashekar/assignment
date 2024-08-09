@@ -81,3 +81,8 @@ def test_delivery_rating(client):
 
 })
     assert response.status_code==200
+
+#testing payment details feature
+def test_payment_details(client):
+    response=client.post("customer/payment_details/1")
+    assert response.status_code==200
