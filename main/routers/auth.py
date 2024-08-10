@@ -81,8 +81,8 @@ def get_current_user(token:str=Depends(oauth2_scheme),db:Session=Depends(get_db)
 
 #API for updating user details
 @router.post("/user/update/",response_model=schemas.UserResponse)
-def update_user_details(user_up:schemas.UserUpdate,db:Session=Depends(get_db),current_user:schemas.User=Depends(get_current_user)):
-    user=db.query(models.User).filter(models.User.id==current_user.id).first()
+def update_user_details(user_up:schemas.UserUpdate,db:Session=Depends(get_db)):
+    user=db.query(models.User).filter(models.User.id==user_up.id).first()
 
     if not user:
         raise HTTPException(status_code=404,detail="User not found to update")
