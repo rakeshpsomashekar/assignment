@@ -105,7 +105,7 @@ def update_user_details(user_up:schemas.UserUpdate,db:Session=Depends(get_db)):
 
 #API for deleting user details
 @router.delete("/user/delete/",response_model=schemas.UserResponse)
-def update_user_details(user_id:int,db:Session=Depends(get_db)):
+def delete_user_details(user_id:int,db:Session=Depends(get_db)):
     user=db.query(models.User).filter(models.User.id==user_id).first()
     if not user:
         raise HTTPException(status_code=404,detail="User not found to update")
